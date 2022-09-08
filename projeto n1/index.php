@@ -11,18 +11,22 @@
    <?php
     require 'conexao.php';
     if (isset($_POST['salvar'])):
+      $Nomecliente = $_POST['nome']; 
+      $endereco = $_POST['teste'];   
 
-      $Nomecliente = $_POST['nome'];
-              
       echo("Cliente: ".$Nomecliente." salvo com sucesso!!!<br>"); 
+      echo("Endereço: ".$endereco." salvo com sucesso!!!<br>"); 
 
-       $sql = 'INSERT INTO tbl_clientes (nome)';
-       $sql .= 'VALUES (:nome)';
+       $sql = 'INSERT INTO tbl_clientes (nome,endereco)';
+       $sql .= 'VALUES (:nome, :teste)';
 
         try {
         $inserir = $pdo->prepare($sql);
-        $inserir->bindValue(':nome', $Nomecliente, PDO::PARAM_STR);                                                 
-        $inserir->execute();        
+
+        $inserir->bindValue(':nome', $Nomecliente, PDO::PARAM_STR);
+        $inserir->bindValue(':teste', $endereco, PDO::PARAM_STR);                                                 
+        $inserir->execute();  
+              
               } 
         catch (PDOEException $exc) {
               echo "Algo deu errado!" . $exc->getTraceAsString();
@@ -34,10 +38,10 @@
 
         else:
           ?>
-          
-
   <label for="nome">Nome cliente:</label><br>
   <input type="text" id="fname" name="nome"><br><br>
+  <label for="nome">Endereço:</label><br>
+  <input type="text" id="fname" name="teste"><br><br>
 
   <input type="submit" value="Cadastrar" name="salvar">
   <br>

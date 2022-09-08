@@ -12,25 +12,28 @@
         <table width="467" border="1px">
             <tr>                
                 <th>Cod</th>
-                <th> Nome</th>                                                            
+                <th> Nome</th> 
+                <th>Endereço</th>                                                           
             </tr>
         </thead>
         <tbody>
             <?php
             #Select da tabela de listagem
-            $sqlRead = 'SELECT * FROM tbl_clientes';
-
+            $Mihaquery1 = 'SELECT * FROM tbl_clientes';
             try {
-                $read = $pdo->prepare($sqlRead);
-                $read->execute();
-            } catch (PDOException $e) {
+                $Minhavariaveldeleitura = $pdo->prepare($Mihaquery1);
+                $Minhavariaveldeleitura->execute();
+            } 
+            catch (PDOException $e) {
                 echo $e->getTMessage();
             }
-            while ($rs = $read->fetch(PDO::FETCH_OBJ)) {
+
+            while ($rs = $Minhavariaveldeleitura->fetch(PDO::FETCH_OBJ)) {
                 ?>
                 <tr>
                     <td><?php echo $rs->id; ?></td>
-                    <td><?php echo $rs->nome; ?></td>                                                              
+                    <td><?php echo $rs->nome; ?></td>
+                    <td><?php echo $rs->endereco; ?></td>                                                             
                 </tr>
             <?php } ?>
         </tbody>
